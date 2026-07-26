@@ -42,22 +42,32 @@ def get_order_status(order_id : str) -> str:
     finally:
         if 'cursor' in locals() and cursor is not None:
             cursor.close()
-        elif 'connection' in locals() and connection.is_connected():
+        if 'connection' in locals() and connection.is_connected():
             connection.close()
             # print("MySQL connection is closed.")
+
+
+embedding_model = HuggingFaceEmbeddings(model_name = "all-MiniLM-L6-v2")
+chromadb = Chroma(persist_directory = "./chroma_db", embedding_function = embedding_model)
+
+@tool
+def search_kb(query : str) -> str:
+    """
+    Use this tool to search the technical knowledge base for troubleshooting steps,
+    repair costs, or product manuals.
+    """
+    results = chromadb.similarity_search(query, k=2)
+
+    if not results:
+        return "no documentation found related to it"
+    
+    total_texts = ""
+
+    for i in results:
+        texts = i.page_content
+        total_texts += texts + "\n\n"
+    return total_texts
+
 if __name__ == "__main__":
     print(get_order_status.invoke({"order_id": "010"}))
-
-# embedding_model = HuggingFaceEmbeddings(model_name = "all-MiniLM-L6-v2l")
-    
-# def search_kb(query : str):
-#     database = {
-#         "router": "Restart the router by unplugging it for 30 seconds.",
-#         "screen": "Screen replacements cost 500rs and take 2 business days."
-#     }
-#     query_lower = query.lower()
-#     for i in database:
-#         if i in query_lower:
-#             return database[i]
-#     else:
-#         return "No relevant Documentation found."
+    print(search_kb.invoke({"query" : "how do i get refund"}))
