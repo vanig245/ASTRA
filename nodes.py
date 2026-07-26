@@ -49,9 +49,8 @@ def technical_node(state: SupportState) -> dict:
     3. Keep your troubleshooting steps concise, clear, and easy to follow.
     """)
 
-    response = tech_llm.invoke([technical_prompt + messages])
-    predicted_intent = response.content.strip().lower()
-    return {"messages": predicted_intent}
+    response = tech_llm.invoke([technical_prompt] + messages)
+    return {"messages": [response]}
 
 
 def billing_node(state: SupportState) -> dict:
@@ -67,7 +66,6 @@ def billing_node(state: SupportState) -> dict:
     3. Present retrieved order details cleanly to the user.
     """)
 
-    response = billing_llm.invoke([bill_promt + messages])
-    predicted_intent = response.content.strip().lower()
-    return {"messages" : predicted_intent}
+    response = billing_llm.invoke([bill_promt] + messages)
+    return {"messages" : [response]}
                                 
