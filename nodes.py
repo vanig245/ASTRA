@@ -57,3 +57,17 @@ def technical_node(state: SupportState) -> dict:
 def billing_node(state: SupportState) -> dict:
     """Handles order/billing queries using the billing support specialist LLM."""
     messages = state["messages"]
+    bill_promt = SystemMessage(content="""
+    You are a billing and order support specialist. 
+    Your goal is to assist customers with order status, tracking information, and shipping updates.
+
+    Rules:
+    1. If the user provides an Order ID, use the get_order_status tool immediately to query the database.
+    2. If the user asks about an order but has NOT provided an Order ID, politely ask them to provide their Order ID first.
+    3. Present retrieved order details cleanly to the user.
+    """)
+
+    response = billing_llm.invoke([bill_promt + messages])
+    predicted_intent = response.content.strip().lower()
+    return {"messages" : predicted_intent}
+                                
