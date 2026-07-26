@@ -22,15 +22,15 @@ def classifier_node(state : SupportState) -> dict:
     messages = state["messages"]
     
     classifier_prompt = SystemMessage(content="""You are an AI triage router for a customer support system. 
-Your sole job is to analyze the user's latest query and classify its intent into EXACTLY ONE of these three categories:
+    Your sole job is to analyze the user's latest query and classify its intent into EXACTLY ONE of these three categories:
 
-1. 'technical' - Queries about hardware, software troubleshooting, product repairs, or technical manuals.
-2. 'billing' - Queries about order tracking, delivery status, shipping updates, or refunds.
-3. 'general' - Greetings, small talk, or queries that do not fit technical or billing.
+    1. 'technical' - Queries about hardware, software troubleshooting, product repairs, or technical manuals.
+    2. 'billing' - Queries about order tracking, delivery status, shipping updates, or refunds.
+    3. 'general' - Greetings, small talk, or queries that do not fit technical or billing.
 
-CRITICAL INSTRUCTION:
-Respond with ONLY ONE word: 'technical', 'billing', or 'general'. 
-Do not add any punctuation, intro text, or explanation.""")
+    CRITICAL INSTRUCTION:
+    Respond with ONLY ONE word: 'technical', 'billing', or 'general'. 
+    Do not add any punctuation, intro text, or explanation.""")
     response = llm.invoke([classifier_prompt] + messages)
     predicted_intent = response.content.strip().lower()
     return {"intent": predicted_intent}
@@ -39,26 +39,21 @@ Do not add any punctuation, intro text, or explanation.""")
 def technical_node(state: SupportState) -> dict:
     """Handles technical queries using the technical support specialist LLM."""
     messages = state["messages"]
-    
-    # TODO 8: Create a SystemMessage establishing the technical support persona.
-    system_prompt = SystemMessage(content="...")
-    
-    # TODO 9: Invoke `tech_llm` with [system_prompt] + messages
-    response = tech_llm.invoke(...)
-    
-    # TODO 10: Return a dictionary appending the response to the message history.
-    return {"messages": [response]}
+    technical_prompt = SystemMessage(content= """
+    You are a technical support specialist. 
+    Your goal is to help users resolve technical issues, hardware problems, and product inquiries.
+
+    Rules:
+    1. Always use the search_kb tool to search the knowledge base when answering technical questions.
+    2. Rely strictly on the information retrieved from search_kb. If no relevant info is found, politely state that you don't have that specific documentation available.
+    3. Keep your troubleshooting steps concise, clear, and easy to follow.
+    """)
+
+    response = tech_llm.invoke([technical_prompt + messages])
+    predicted_intent = response.content.strip().lower()
+    return {"messages": predicted_intent}
 
 
 def billing_node(state: SupportState) -> dict:
     """Handles order/billing queries using the billing support specialist LLM."""
     messages = state["messages"]
-    
-    # TODO 11: Create a SystemMessage establishing the billing support persona.
-    system_prompt = SystemMessage(content="...")
-    
-    # TODO 12: Invoke `billing_llm` with [system_prompt] + messages
-    response = billing_llm.invoke(...)
-    
-    # TODO 13: Return a dictionary appending the response to the message history.
-    return {"messages": [response]}
