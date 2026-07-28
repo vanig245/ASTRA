@@ -149,13 +149,6 @@ ASTRA/
 └── kb_docs/        # Raw knowledge base text files
 ```
 
-## Roadmap
-
-- [ ] Web-based chat interface
-- [ ] Support for additional LLM providers
-- [ ] Multi-turn order status updates (e.g., cancellations, returns)
-- [ ] Evaluation suite for routing accuracy
-
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
