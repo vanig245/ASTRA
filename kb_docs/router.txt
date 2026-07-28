@@ -1,1 +1,12 @@
-how to reboot a router
+Router Setup and Troubleshooting Manual
+
+Basic Connectivity Issues:
+If you are experiencing slow internet speeds or a dropped connection, the first and most effective step is a power cycle. Restart the router by unplugging it for 30 seconds, then plug it back in. Wait approximately 2 minutes for all lights to stabilize before testing your connection.
+
+Understanding Indicator Lights:
+Solid Green: The router is powered on and successfully connected to the internet.
+Blinking Orange: The router is currently downloading and installing a firmware update. Do not unplug the device.
+Solid Red: The router cannot detect an internet signal from the modem. Check the ethernet cable connecting the router to the modem.
+
+Factory Reset:
+If you have forgotten your Wi-Fi password or the router is completely unresponsive, you can perform a factory reset. Locate the small "Reset" pinhole on the back of the device. Use a paperclip to press and hold the button inside for 10 seconds. Note: This will erase all custom network names and passwords.

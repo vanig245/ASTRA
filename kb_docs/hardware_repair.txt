@@ -1,1 +1,13 @@
-if your system required repair or cleaning
+Hardware Repair and Servicing Guide
+
+Screen Replacements:
+If your device has a cracked or unresponsive display, we offer certified repairs. Screen replacements cost 500rs and take 2 business days to complete. Please ensure all data is backed up before handing over your device.
+
+Battery Replacements:
+Devices experiencing rapid battery drain or unexpected shutdowns may need a new battery. Battery replacements cost 300rs and are usually completed within 1 business day. 
+
+Water Damage:
+Water-damaged devices require a comprehensive diagnostic test, which carries a non-refundable fee of 150rs. Repair costs will be estimated after the diagnostic is complete. Turnaround time for water damage is typically 5 to 7 business days.
+
+Warranty on Repairs:
+All hardware repairs come with a 90-day limited warranty covering the replaced parts and labor. This warranty is voided if the device suffers subsequent physical or liquid damage.
