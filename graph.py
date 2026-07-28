@@ -31,3 +31,25 @@ builder.add_edge("technical", END)
 builder.add_edge("billing", END)
 
 app = builder.compile()
+
+
+if __name__ == "__main__":
+    print(" Support Agent initialized!")
+    chat_history = []
+    
+    while True:
+        user_input = input("\nYou: ")
+        if user_input.lower() in ["quit", "exit"]:
+            print("bye!")
+            break
+
+        user_message = HumanMessage(content=user_input)
+        chat_history.append(user_message)
+        
+        initial_state = {"messages": chat_history}
+
+        final_state = app.invoke(initial_state)
+        ai_response = final_state["messages"][-1].content
+        print(f"Agent: {ai_response}")
+
+        chat_history.append(final_state["messages"][-1])
