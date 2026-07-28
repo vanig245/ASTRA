@@ -18,7 +18,7 @@ texts = text_splitter.split_documents(documents)
 embedding_model = HuggingFaceEmbeddings(model_name = "all-MiniLM-L6-v2")
 
 chromadb = Chroma.from_documents(
-    texts = texts,
+    documents = texts,
     embedding = embedding_model,
     persist_directory = "./chroma_db"
 )
