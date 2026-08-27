@@ -99,3 +99,9 @@ def billing_node(state: SupportState) -> dict:
         return {"messages": [response, tool_msg, final_response]}
     return {"messages" : [response]}
                                 
+def general_node(state: SupportState) -> dict:
+    """Handles small talk and general greetings."""
+    messages = state["messages"]
+    general_prompt = SystemMessage(content="You are a helpful customer support AI. Reply briefly and politely to general chat.")
+    response = llm.invoke([general_prompt] + messages)
+    return {"messages": [response]}
