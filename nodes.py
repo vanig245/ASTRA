@@ -25,8 +25,8 @@ def classifier_node(state : SupportState) -> dict:
     classifier_prompt = SystemMessage(content="""You are an AI triage router for a customer support system. 
     Your sole job is to analyze the user's latest query and classify its intent into EXACTLY ONE of these three categories:
 
-    1. 'technical' - Queries about hardware, software troubleshooting, product repairs, or technical manuals.
-    2. 'billing' - Queries about order tracking, delivery status, shipping updates, or refunds.
+    1. 'technical' - Queries about hardware, troubleshooting, repairs, or READING COMPANY POLICIES (like refund rules).
+    2. 'billing' - Queries specifically requiring an Order ID to check delivery status or tracking updates.
     3. 'general' - Greetings, small talk, or queries that do not fit technical or billing.
 
     CRITICAL INSTRUCTION:
@@ -54,8 +54,10 @@ def technical_node(state: SupportState) -> dict:
 
     Rules:
     1. Always use the search_kb tool to search the knowledge base when answering technical questions.
-    2. Rely strictly on the information retrieved from search_kb. 
-    3. Keep your troubleshooting steps concise, clear, and easy to follow.
+    2. Rely STRICTLY and EXCLUSIVELY on the information retrieved from search_kb. 
+    3. If the retrieved documents do not contain the specific answer to the user's question, DO NOT guess, infer, or combine unrelated policies. 
+    4. If the information is missing, simply state: "I'm sorry, I don't have documentation on that specific issue."
+    5. Do not apply fees or policies from one type of repair (e.g., water damage) to a different issue unless explicitly stated in the text.
     """)
 
     response = tech_llm.invoke([technical_prompt] + messages)
