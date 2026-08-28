@@ -44,7 +44,7 @@ This modular design keeps each agent's scope narrow, which makes the system's be
 ## Tech Stack
 
 - **Framework:** LangChain & LangGraph
-- **LLM Provider:** Groq (Llama 3.3 70B & Llama 3.1 8B)
+- **LLM Provider:** Groq (openai/gpt-oss-120b)
 - **Vector Database:** ChromaDB
 - **Embeddings:** HuggingFace (`all-MiniLM-L6-v2`)
 - **Relational Database:** MySQL
