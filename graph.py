@@ -15,7 +15,6 @@ def intent_read(state: SupportState) -> str:
         return "billing"
     else:
         return "general"
-    pass
 
 
 builder = StateGraph(SupportState)
